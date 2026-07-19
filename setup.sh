@@ -99,6 +99,8 @@ cat > UptimeServer.js << 'EOF'
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const PORT = process.env.PORT || 5000;
+const HOST = '0.0.0.0';
 http.createServer((req, res) => {
   const f = path.join(__dirname, 'index.html');
   fs.readFile(f, (err, data) => {
@@ -106,8 +108,8 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(data);
   });
-}).listen(5000, () => {
-  console.log('\n✅ Uptime server na porta 5000');
+}).listen(PORT, HOST, () => {
+  console.log(`\n✅ Uptime server em ${HOST}:${PORT}`);
   console.log('📡 Adicione a URL deste Replit no UptimeRobot!\n');
 });
 EOF
@@ -150,16 +152,30 @@ BOT_PID=$!
 cd ..
 
 CONNECTED=false
+WAITING_SHOWN=false
 TIMEOUT=300
 ELAPSED=0
 
+# Só conta como "conectado" quando há confirmação real de sucesso.
+SUCCESS_PATTERN='(connection.{0,3}(is|:)?.{0,3}open|opened connection|logged in|client is ready|ready!|conectado com sucesso|sess(a|ã)o (restaurada|salva)|successfully connected|connection established|online)'
+
+# Pedido de QR/código de pareamento NÃO é conexão — é só um aviso pra você agir.
+WAITING_PATTERN='(qr code|escaneie|scan the|pairing code|c(o|ó)digo de pareamento|aguardando.*(qr|c(o|ó)digo))'
+
 while [ $ELAPSED -lt $TIMEOUT ]; do
-  if grep -qiE "(connect|open|session|qr|ready|logged|online|iniciando|aberto|escaneie|scan)" "$LOG_FILE" 2>/dev/null; then
+  if grep -qiE "$SUCCESS_PATTERN" "$LOG_FILE" 2>/dev/null; then
     echo ""
     echo "${G}[ ✅ ] Conexão detectada! Bot está respondendo.${X}"
     CONNECTED=true
     break
   fi
+
+  if [ "$WAITING_SHOWN" = false ] && grep -qiE "$WAITING_PATTERN" "$LOG_FILE" 2>/dev/null; then
+    echo ""
+    echo "${Y}[ ⏸  ] Bot está pedindo QR/código. Escaneie ou digite o código agora — vou continuar aguardando.${X}"
+    WAITING_SHOWN=true
+  fi
+
   sleep 2
   ELAPSED=$((ELAPSED + 2))
   printf "\r${Y}⏳ Aguardando conexão... ${ELAPSED}s${X}   "
