@@ -1,0 +1,13 @@
+{
+  "name": "bot-installer-24h",
+  "version": "1.0.0",
+  "description": "Uptime server + instalador do bot 24h",
+  "main": "server.js",
+  "scripts": {
+    "start": "bash setup.sh"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}
