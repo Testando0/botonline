@@ -126,7 +126,7 @@ cd ${BOT_DIR}
 while :
 do
   echo "\${G}▶ Iniciando bot...${X}"
-  ${START_CMD}
+  ${START_CMD} </dev/tty
   echo "\${Y}⚠️  Bot encerrou. Reiniciando em 3s...${X}"
   sleep 3
 done
@@ -145,7 +145,7 @@ LOG_FILE="/tmp/bot_output.log"
 > "$LOG_FILE"
 
 cd "$BOT_DIR"
-eval "$START_CMD" 2>&1 | tee "$LOG_FILE" &
+eval "$START_CMD" </dev/tty 2>&1 | tee "$LOG_FILE" &
 BOT_PID=$!
 cd ..
 
