@@ -2,7 +2,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+const HOST = '0.0.0.0';
 
 http.createServer((req, res) => {
   const filePath = path.join(__dirname, 'index.html');
@@ -15,7 +16,7 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(data);
   });
-}).listen(PORT, () => {
-  console.log(`✅ Servidor rodando na porta ${PORT}`);
+}).listen(PORT, HOST, () => {
+  console.log(`✅ Servidor rodando em ${HOST}:${PORT}`);
   console.log(`📡 Adicione essa URL no UptimeRobot para ficar 24h on!\n`);
 });
