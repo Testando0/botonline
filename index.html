@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bot Online</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      text-align: center;
+      padding: 60px 50px;
+      border: 1px solid #1a1a1a;
+      border-radius: 20px;
+      background: #111;
+      max-width: 420px;
+      width: 90%;
+    }
+
+    .dot-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background: #00ff88;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00ff88;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 10px #00ff88; }
+      50% { opacity: 0.4; box-shadow: 0 0 4px #00ff88; }
+    }
+
+    .status-text {
+      color: #00ff88;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    p {
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    .uptime {
+      margin-top: 30px;
+      font-size: 0.78rem;
+      color: #333;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="dot-wrap">
+      <div class="dot"></div>
+      <span class="status-text">Online</span>
+    </div>
+    <h1>🤖 Bot</h1>
+    <p>Rodando e conectado.</p>
+    <div class="uptime">monitorado 24h</div>
+  </div>
+</body>
+</html>
