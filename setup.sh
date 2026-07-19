@@ -19,13 +19,13 @@ echo "${W}O bot já está baixado nesta máquina?${X}"
 echo "  ${G}[1]${X} Sim, já está aqui (informar pasta)"
 echo "  ${G}[2]${X} Não, quero clonar do GitHub"
 echo ""
-read -p "Escolha (1 ou 2): " OPCAO
+read -p "Escolha (1 ou 2): " OPCAO </dev/tty
 
 BOT_DIR=""
 
 if [ "$OPCAO" = "1" ]; then
   echo ""
-  read -p "📁 Nome da pasta do bot: " BOT_DIR
+  read -p "📁 Nome da pasta do bot: " BOT_DIR </dev/tty
   if [ -z "$BOT_DIR" ] || [ ! -d "$BOT_DIR" ]; then
     echo "${R}[ ERRO ] Pasta '$BOT_DIR' não encontrada.${X}"
     exit 1
@@ -34,7 +34,7 @@ if [ "$OPCAO" = "1" ]; then
 
 elif [ "$OPCAO" = "2" ]; then
   echo ""
-  read -p "🔗 Link do GitHub: " REPO_URL
+  read -p "🔗 Link do GitHub: " REPO_URL </dev/tty
   if [ -z "$REPO_URL" ]; then
     echo "${R}[ ERRO ] Nenhum link informado.${X}"
     exit 1
@@ -62,7 +62,7 @@ PKG="$BOT_DIR/package.json"
 
 if [ ! -f "$PKG" ]; then
   echo "${R}[ AVISO ] package.json não encontrado.${X}"
-  read -p "▶️  Digite o comando para iniciar o bot: " START_CMD
+  read -p "▶️  Digite o comando para iniciar o bot: " START_CMD </dev/tty
 else
   START_CMD=$(node -e "
     try {
